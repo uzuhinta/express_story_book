@@ -1,15 +1,21 @@
-const express = require('express');
-const passport = require('passport');
-const router = express.Router();
+const express = require('express')
+const passport = require('passport')
+const router = express.Router()
 
-//@desc     Auth with google
-//@route    GET /auth/google
-router.get('/google', passport.authenticate('google', {scope: ['profile']}))
+// @desc    Auth with Google
+// @route   GET /auth/google
+router.get('/google', passport.authenticate('google', { scope: ['profile'] }))
 
-//@desc     Callback from auth google
-//@route    GET /auth/google/callback
-router.get('/google/callback', passport.authenticate('google', {failureRedirect: '/'}), (rep, res) => {
-    res.redirect('/dashboard')
-})
+// @desc    Google auth callback
+// @route   GET /auth/google/callback
+router.get(
+  '/google/callback',
+  passport.authenticate('google', { failureRedirect: '/' }),
+  (req, res) => {
+      console.log('over passport');
+    res.redirect('/dashboard');
+  }
+)
 
-module.exports = router;
+
+module.exports = router
